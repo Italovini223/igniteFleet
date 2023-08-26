@@ -1,13 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { ThemeProvider } from 'styled-components/native';
 
+import theme from './src/theme';
 import { SingIn } from './src/screens/SingIn';
 
 export default function App() {
   return (
-    <View>
-      <StatusBar style="auto" />
+    <ThemeProvider theme={theme}>
       <SingIn />
-    </View>
+    </ThemeProvider>
   );
 }
