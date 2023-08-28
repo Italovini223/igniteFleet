@@ -1,14 +1,29 @@
-import React from 'react';
+import { useState } from 'react';
+import { Container, Slogan, Title } from './styles';
 
+import BackgroundImg from '../../assets/background.png'
 
-import { View, Text } from 'react-native';
-
-import { styles } from './styles';
+import { Button } from '../../componentes/Button';
 
 export function SingIn() {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
-    <View style={styles.container}>
-    <Text>Open up App.tsx to start working on your app!</Text>
-  </View>
+    <Container
+      source={BackgroundImg}
+    >
+      <Title>
+        Ignite Fleet
+      </Title>
+
+      <Slogan>
+        Gestão de uso de veículos
+      </Slogan>
+
+      <Button 
+        title='Entrar com Google' 
+        isLoading={isLoading}
+        />
+    </Container>
   );
 }
