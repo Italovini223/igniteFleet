@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { Alert } from 'react-native';
 
+import { Realm, useApp } from '@realm/react'
+
 import * as WebBrowser from 'expo-web-browser'
 import * as Google from 'expo-auth-session/providers/google'
 
@@ -18,6 +20,8 @@ WebBrowser.maybeCompleteAuthSession()
 
 export function SingIn() {
   const [isLoading, setIsLoading] = useState(false);
+  
+  const app = useApp()
 
   const [_, response, googleSingIn] = Google.useAuthRequest({
     androidClientId: ANDROID_CLIENT_ID,
@@ -39,10 +43,16 @@ export function SingIn() {
   useEffect(() => {
     if(response?.type === 'success'){
       if(response.authentication?.idToken){
-        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${response.authentication.idToken}`)
-        .then(response => response.json())
-        .then(console.log)
-        setIsLoading(false)
+        const credentials = Realm.Credentials.jwt(response.authentication.idToken)
+
+        app.logIn(credentials).catch((error) => {
+          console.log(error);
+          
+          Alert.alert('Entrar', 'Nao foi possível conectar-se a sua const Google')
+          setIsLoading(false)
+        })
+
+        
       } else {
         Alert.alert('Entrar', 'Nao foi possível conectar-se a sua const Google')
         setIsLoading(false)
