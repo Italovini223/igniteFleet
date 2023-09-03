@@ -11,5 +11,4 @@ export const {
   useObject
 } = createRealmContext({
   schema: [Historic],
-  
 });
