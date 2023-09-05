@@ -1,14 +1,22 @@
 import { Container, Content } from './styles';
 
-import { Header } from '../../componentes/Header';
+import { useNavigation } from '@react-navigation/native';
+
+import { HomeHeader } from '../../componentes/HomeHeader';
 import { CarStatus } from '../../componentes/CarStatus';
 
 export function Home() {
+  const { navigate } = useNavigation()
+
+  function handleRegisterMovement(){
+   navigate('departure');
+  }
+
   return (
     <Container>
-      <Header />
+      <HomeHeader />
       <Content>
-        <CarStatus />
+        <CarStatus onPress={handleRegisterMovement}/>
       </Content>
     </Container>
   );
