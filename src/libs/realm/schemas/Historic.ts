@@ -1,5 +1,7 @@
 import { Realm } from "@realm/react";
 
+import { ObjectSchema } from 'realm'
+
 type GenerateProps = {
   user_id: string;
   description: string;
@@ -30,7 +32,7 @@ export class Historic extends Realm.Object<Historic>{
     }
   }
 
-  static schema = {
+  static schema: ObjectSchema = {
     name: 'Historic',
     primaryKey: '_id',
 
@@ -40,7 +42,7 @@ export class Historic extends Realm.Object<Historic>{
       license_plate: 'string',
       description: 'string',
       status: 'string',
-      create_at: 'date',
+      created_at: 'date',
       updated_at: 'date',
     }
   }

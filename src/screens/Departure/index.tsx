@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 
 import { Container, Content } from './styles';
@@ -11,10 +11,13 @@ import { Button } from '../../componentes/Button';
 const keyboardAvoidingViewBehavior = Platform.OS === 'android' ? 'height' : 'position';
 
 export function Departure() {
+  const [description, setDescription] = useState('')
+  const [licensesPlate, setLicensesPlate] = useState('')
+
   const descriptionRef = useRef<TextInput>(null)
 
   function handleDepartureRegister(){
-    console.log('nice');
+    
   }
 
   return (
@@ -29,6 +32,7 @@ export function Departure() {
               placeholder='BRA2E19'
               returnKeyType='next'
               onSubmitEditing={() => { descriptionRef.current?.focus()}}
+              onChangeText={setLicensesPlate}
             />
 
             <TextAreaInput 
@@ -38,6 +42,7 @@ export function Departure() {
               onSubmitEditing={handleDepartureRegister}
               returnKeyType='send'
               blurOnSubmit
+              onChangeText={setDescription}
             />
 
             <Button title='Registrar Saída'/>
