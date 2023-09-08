@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
-import { TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { TextInput, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 
 import { Container, Content } from './styles';
+
+import { licensePlateValidate } from '../../utils/licensesPlateValidate';
 
 import { Header } from '../../componentes/Header';
 import { LicensePlateInput } from '../../componentes/LicensePlateInput';
@@ -15,9 +17,15 @@ export function Departure() {
   const [licensesPlate, setLicensesPlate] = useState('')
 
   const descriptionRef = useRef<TextInput>(null)
+  const licensePlateRef = useRef<TextInput>(null)
 
   function handleDepartureRegister(){
-    
+    if(!licensePlateValidate(licensesPlate)){
+      licensePlateRef.current?.focus();
+      return Alert.alert('Placa invalida', 
+      'A placa e invalida. Por favor informe a placa correta do veículo'
+    )
+    }
   }
 
   return (
@@ -28,6 +36,7 @@ export function Departure() {
         <ScrollView style={{flex: 1}}>
           <Content>
             <LicensePlateInput 
+             ref={licensePlateRef}
               label='Placa do veículo'
               placeholder='BRA2E19'
               returnKeyType='next'
