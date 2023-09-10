@@ -11,7 +11,7 @@ export const Container = styled.View`
   z-index: 1;
 `;
 
-export const Title = styled.View`
+export const Title = styled.Text`
   color: ${({ theme }) => theme.COLORS.GRAY_100};
   font-size: ${({ theme }) => theme.FONT_SIZE.XL}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};

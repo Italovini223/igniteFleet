@@ -11,4 +11,5 @@ export const {
   useObject
 } = createRealmContext({
   schema: [Historic],
+  deleteRealmIfMigrationNeeded: true
 });
