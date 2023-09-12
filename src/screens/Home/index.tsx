@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { useRealm } from '../../libs/realm';
+
 import { Container, Content } from './styles';
 
 import { useNavigation } from '@react-navigation/native';
@@ -17,6 +19,7 @@ export function Home() {
   const { navigate } = useNavigation()
 
   const historic = useQuery(Historic)
+  const realm = useRealm()
 
   function handleRegisterMovement(){
     if(vehicleInUse?._id){
@@ -26,7 +29,7 @@ export function Home() {
     }
   }
 
-  function fetchVehicle(){
+  function fetchVehicleInUse(){
     try {
       const vehicle = historic.filtered("status = 'departure'")[0]
   
@@ -38,9 +41,24 @@ export function Home() {
     }
   }
 
+  function fetchHistoric(){
+    const response = historic.filtered("status = 'arrival' SORT(created_at DESC)")
+    console.log(response)
+  }
+
   useEffect(() => {
-    fetchVehicle()
+    fetchVehicleInUse()
+  }, [])  
+
+  useEffect(() => {
+    realm.addListener('change', () => fetchVehicleInUse())
+
+    return () => realm.removeListener('change', fetchVehicleInUse)
   }, [])
+
+  useEffect(() => {
+    fetchHistoric()
+  }, [historic])
 
   return (
     <Container>
