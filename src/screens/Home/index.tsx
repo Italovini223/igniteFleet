@@ -12,6 +12,7 @@ import { Historic } from '../../libs/realm/schemas/Historic';
 import { HomeHeader } from '../../componentes/HomeHeader';
 import { CarStatus } from '../../componentes/CarStatus';
 import { Alert } from 'react-native';
+import { HistoricCard } from '../../componentes/HistoricCard';
 
 export function Home() {
   const [vehicleInUse, setVehicleInUse] = useState<Historic | null>(null);
@@ -68,6 +69,7 @@ export function Home() {
           onPress={handleRegisterMovement}
           licensePlate={vehicleInUse?.license_plate}
         />
+
       </Content>
     </Container>
   );
