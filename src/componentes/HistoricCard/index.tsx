@@ -7,6 +7,7 @@ import { useTheme } from 'styled-components/native';
 
 
 export type HistoryCardProps = {
+  id: string;
   licensePlate: string;
   created: string;
   isSync: boolean;
@@ -20,6 +21,7 @@ export function HistoricCard({data, ...rest}: Porps) {
   const { COLORS } = useTheme()
   return (
     <Container
+      activeOpacity={0.7}
       {...rest}
     >
       <Info>
